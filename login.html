@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Portal Login & Registration | EquiCapital</title>
+  <meta name="description" content="Secure business client portal for EquiCapital. Log in or create an account to manage loan applications, upload documents, and track approvals.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['selector', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0F172A',
+              slate: '#1E293B',
+              cyan: '#2AAECE',
+              emerald: '#2AAECE',
+              'emerald-hover': '#1E94B1',
+              gold: '#F59E0B',
+              blue: '#2563EB',
+              rose: '#EF4444'
+            },
+            emerald: {
+              50: '#F0FBFD',
+              100: '#E8F7F3',
+              200: '#BAEBF4',
+              300: '#7CD5E9',
+              400: '#46BFDC',
+              500: '#2AAECE',
+              600: '#1E94B1',
+              700: '#17768E',
+              800: '#155E72',
+              900: '#144E5E',
+              950: '#073340'
+            },
+            teal: {
+              50: '#F0FBFD',
+              100: '#E8F7F3',
+              200: '#BAEBF4',
+              300: '#7CD5E9',
+              400: '#46BFDC',
+              500: '#2AAECE',
+              600: '#1E94B1',
+              700: '#17768E',
+              800: '#155E72',
+              900: '#144E5E',
+              950: '#073340'
+            },
+            cyan: {
+              50: '#F0FBFD',
+              100: '#E8F7F3',
+              200: '#BAEBF4',
+              300: '#7CD5E9',
+              400: '#46BFDC',
+              500: '#2AAECE',
+              600: '#1E94B1',
+              700: '#17768E',
+              800: '#155E72',
+              900: '#144E5E',
+              950: '#073340'
+            },
+            cream: {
+              50: '#FDFBF7',
+              100: '#F6F1E9',
+              200: '#EFE8DC',
+              300: '#E7DEC9',
+              400: '#DFD2B6',
+              500: '#D4C3A3'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            heading: ['"Space Grotesk"', '"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Custom Core Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#FDFBF7] dark:bg-[#090E17] text-slate-900 dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-[#2AAECE] selection:text-white">
+
+  <!-- Top Utilities Bar -->
+  <header class="py-3 sm:py-4 px-3 sm:px-6 flex items-center justify-between border-b border-slate-100 dark:border-slate-800">
+    <a href="index.html" class="flex items-center gap-2 sm:gap-3 group">
+      <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+        <i class="bi bi-shield-check text-lg sm:text-xl"></i>
+      </div>
+      <div>
+        <span class="font-heading text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white block leading-none">
+          Equi<span class="text-emerald-500">Capital</span>
+        </span>
+        <span class="text-[8px] sm:text-[9px] uppercase font-bold tracking-widest text-slate-500 dark:text-slate-400 block mt-1">
+          COMMERCIAL FINANCE BROKER
+        </span>
+      </div>
+    </a>
+
+    <div class="flex items-center gap-1.5 sm:gap-3">
+      <button class="theme-toggle-btn p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300">
+        <i class="bi bi-moon-stars-fill theme-toggle-icon"></i>
+      </button>
+      <button class="rtl-toggle-btn p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center" title="Toggle Text Direction (LTR / RTL)" aria-label="Toggle Text Direction">
+        <i class="bi bi-arrow-left-right"></i>
+      </button>
+      <a href="index.html" class="text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-emerald-500 flex items-center gap-1">
+        <i class="bi bi-arrow-left"></i> <span>Back to Home</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- SPLIT SCREEN PORTAL MAIN -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-10 relative overflow-hidden">
+    <!-- Ambient High-Tech Hero Background Effects & Aurora Animations -->
+    <div class="hero-bg-effects" aria-hidden="true">
+      <div class="hero-grid-pattern"></div>
+      <div class="hero-grid-beam"></div>
+      <div class="hero-glow-blob hero-blob-1"></div>
+      <div class="hero-glow-blob hero-blob-2"></div>
+      <div class="hero-particle particle-1"></div>
+      <div class="hero-particle particle-2"></div>
+      <div class="hero-crosshair crosshair-1">+</div>
+    </div>
+
+    <div class="max-w-5xl w-full glass-card rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 grid grid-cols-1 lg:grid-cols-12 min-h-[640px] relative z-10 hero-card-float">
+      
+      <!-- LEFT SIDE: FINANCIAL CREDIBILITY & TRUST PILLARS -->
+      <div class="lg:col-span-5 bg-slate-900 text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+        <!-- Commercial Banking Tower Hero Background Image -->
+        <div class="absolute inset-0 z-0 pointer-events-none">
+          <img src="images/hero-login-banking.jpg" alt="Commercial Financial Headquarters Tower" class="w-full h-full object-cover object-center opacity-30 mix-blend-luminosity">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/90 to-slate-900/75"></div>
+        </div>
+        
+        <div class="relative z-10 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-[11px] font-bold uppercase tracking-wider">
+            <i class="bi bi-lock-fill"></i> Bank-Level 256-Bit SSL
+          </div>
+
+          <h2 class="text-2xl sm:text-3xl font-extrabold font-heading leading-tight">
+            Commercial Client Portal & Underwriting Hub
+          </h2>
+
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Monitor your loan applications in real time, securely upload financial documentation, and review competing lender term sheets directly with your assigned advisor.
+          </p>
+
+          <!-- Metrics Box -->
+          <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-400">Total Capital Deployed:</span>
+              <strong class="text-white font-tabular font-bold">$1.4B+</strong>
+            </div>
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-400">Average Approval Speed:</span>
+              <strong class="text-emerald-400 font-bold">24-48 Hours</strong>
+            </div>
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-400">Institutional Lenders:</span>
+              <strong class="text-white font-bold">75+ Syndicated</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Client Testimonial Quote -->
+        <div class="relative z-10 pt-8 border-t border-slate-800 mt-8 space-y-3">
+          <div class="flex text-amber-400 text-xs">
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-star-fill"></i>
+          </div>
+          <p class="text-xs text-slate-300 italic leading-relaxed">
+            "The transparent tracker let our executive team see underwriting milestones every step of the way. Unrivaled broker experience."
+          </p>
+          <div class="text-[11px] text-slate-400">
+            <strong class="text-white block font-bold">Alexander Vance</strong>
+            Managing Member, Vance Heavy Hauling LLC
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDE: TABBED FORMS (LOGIN / REGISTER / FORGOT) -->
+      <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between">
+        
+        <!-- Auth View Header -->
+        <div class="border-b border-slate-100 dark:border-slate-800 pb-3 sm:pb-4 mb-6">
+          <h2 id="auth-panel-title" class="text-xl sm:text-2xl font-extrabold font-heading text-slate-900 dark:text-white">
+            Sign In
+          </h2>
+          <p id="auth-panel-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Access your commercial financing dashboard and active applications.
+          </p>
+        </div>
+
+        <!-- 1. LOGIN FORM -->
+        <div id="form-container-login" class="auth-form-container space-y-5">
+
+          <form id="form-login" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                Business Email Address
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                  <i class="bi bi-envelope"></i>
+                </span>
+                <input type="email" id="login-email" required placeholder="user@equicapital.com" 
+                       class="form-input text-xs sm:text-sm pl-9 py-2.5">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                Password
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                  <i class="bi bi-lock"></i>
+                </span>
+                <input type="password" id="login-password" required placeholder="•••••••• (1234)" 
+                       class="form-input text-xs sm:text-sm pl-9 pr-10 py-2.5">
+                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600" onclick="togglePasswordVisibility('login-password', this)">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between text-xs pt-1">
+              <label class="flex items-center gap-2 cursor-pointer text-slate-600 dark:text-slate-400">
+                <input type="checkbox" id="login-remember" class="rounded text-emerald-500 focus:ring-emerald-400">
+                <span>Remember this workstation</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn-primary w-full text-sm py-3 shadow-glow mt-2">
+              <i class="bi bi-box-arrow-in-right"></i> Sign In
+            </button>
+
+            <!-- Register & Reset Password Links Below Sign In -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-2 text-xs text-slate-600 dark:text-slate-400">
+              <div class="flex items-center gap-1">
+                <span>Don't have an account?</span>
+                <button type="button" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline" onclick="switchAuthTab('register')">
+                  Register
+                </button>
+              </div>
+              <button type="button" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline" onclick="switchAuthTab('forgot')">
+                Reset Password
+              </button>
+            </div>
+          </form>
+
+          <!-- Social Demo OAuth Logins -->
+          <div class="pt-4 border-t border-slate-100 dark:border-slate-800 text-center">
+            <span class="text-xs text-slate-600 dark:text-slate-400 block mb-3">Or sign in with corporate SSO</span>
+            <div class="flex gap-3 justify-center">
+              <button id="sso-google-btn" data-provider="Google" type="button" class="social-demo-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:bg-emerald-500/5 transition-all text-sm flex items-center gap-2 cursor-pointer" title="Sign in with Google">
+                <i class="bi bi-google text-red-500"></i> <span class="text-xs font-semibold">Google</span>
+              </button>
+              <button id="sso-microsoft-btn" data-provider="Microsoft" type="button" class="social-demo-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:bg-emerald-500/5 transition-all text-sm flex items-center gap-2 cursor-pointer" title="Sign in with Microsoft">
+                <i class="bi bi-microsoft text-blue-500"></i> <span class="text-xs font-semibold">Microsoft</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 2. REGISTRATION FORM -->
+        <div id="form-container-register" class="auth-form-container space-y-4 hidden">
+          <form id="form-register" class="space-y-3.5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                  Full Legal Name
+                </label>
+                <input type="text" id="reg-name" required placeholder="Alexander Vance" class="form-input text-xs py-2">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                  Direct Phone Number
+                </label>
+                <input type="tel" id="reg-phone" required placeholder="+1 (555) 000-0000" class="form-input text-xs py-2">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                  Business Legal Name
+                </label>
+                <input type="text" id="reg-biz-name" required placeholder="Vance Hauling LLC" class="form-input text-xs py-2">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                  Entity Structure
+                </label>
+                <select id="reg-biz-entity" class="form-select text-xs py-2">
+                  <option value="LLC">Limited Liability Company (LLC)</option>
+                  <option value="C-Corp">C-Corporation</option>
+                  <option value="S-Corp">S-Corporation</option>
+                  <option value="Partnership">Partnership</option>
+                  <option value="Sole Proprietor">Sole Proprietorship</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                Corporate Email Address
+              </label>
+              <input type="email" id="reg-email" required placeholder="alexander@vancehauling.com" class="form-input text-xs py-2">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                  Create Password
+                </label>
+                <input type="password" id="reg-password" required placeholder="Minimum 8 characters" class="form-input text-xs py-2">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                  Confirm Password
+                </label>
+                <input type="password" id="reg-confirm-password" required placeholder="Repeat password" class="form-input text-xs py-2">
+              </div>
+            </div>
+
+            <!-- Password Strength Meter -->
+            <div>
+              <div class="flex justify-between text-[10px] text-slate-500 mb-1">
+                <span>Password Strength</span>
+                <span id="pwd-strength-label" class="font-bold text-slate-600">None</span>
+              </div>
+              <div class="w-full h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                <div id="pwd-strength-bar" class="h-full bg-slate-400 rounded-full transition-all" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <div class="pt-1">
+              <label class="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400 cursor-pointer">
+                <input type="checkbox" id="reg-terms" required class="mt-0.5 rounded text-emerald-500 focus:ring-emerald-400">
+                <span>I agree to the Commercial Terms of Brokerage and authorize soft credit inquiry for loan quotes.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn-primary w-full text-sm py-2.5 shadow-glow mt-2">
+              <i class="bi bi-shield-lock"></i> Register Client Account
+            </button>
+
+            <div class="text-center pt-2 text-xs text-slate-600 dark:text-slate-400">
+              <span>Already have an account?</span>
+              <button type="button" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline ml-1" onclick="switchAuthTab('login')">
+                Sign In
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- 3. FORGOT PASSWORD FORM -->
+        <div id="form-container-forgot" class="auth-form-container space-y-5 hidden">
+          <div>
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Recover Your Account</h3>
+            <p class="text-xs text-slate-500 mt-1">Enter your registered business email. We'll dispatch a secure one-time password recovery link.</p>
+          </div>
+
+          <form id="form-forgot" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                Registered Email Address
+              </label>
+              <input type="email" id="forgot-email" required placeholder="client@equicapital-demo.com" 
+                     class="form-input text-xs sm:text-sm py-2.5">
+            </div>
+
+            <button type="submit" class="btn-primary w-full text-sm py-3 shadow-glow">
+              <i class="bi bi-send-fill"></i> Send Reset Link
+            </button>
+          </form>
+
+          <div id="forgot-success-alert" class="hidden p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/30 text-xs text-emerald-800 dark:text-emerald-300 space-y-1">
+            <strong class="font-bold block">Password Reset Link Dispatched!</strong>
+            <p>A recovery email was simulated for your address. Check your inbox to set a new password.</p>
+          </div>
+
+          <div class="text-center pt-3 text-xs text-slate-600 dark:text-slate-400">
+            <span>Remember your password?</span>
+            <button type="button" class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline ml-1" onclick="switchAuthTab('login')">
+              Sign In
+            </button>
+          </div>
+        </div>
+
+        <!-- Bottom Security Note -->
+        <div class="pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+          <span>Protected by EquiCapital 256-Bit TLS</span>
+          <span>SOC-2 Compliant Storage</span>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Modals & Script -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Auth View Switching Logic
+    function switchAuthTab(tab) {
+      const tabs = ['login', 'register', 'forgot'];
+      const titleEl = document.getElementById('auth-panel-title');
+      const subtitleEl = document.getElementById('auth-panel-subtitle');
+
+      tabs.forEach(t => {
+        const container = document.getElementById(`form-container-${t}`);
+        if (t === tab) {
+          container?.classList.remove('hidden');
+        } else {
+          container?.classList.add('hidden');
+        }
+      });
+
+      if (tab === 'login') {
+        if (titleEl) titleEl.textContent = 'Sign In';
+        if (subtitleEl) subtitleEl.textContent = 'Access your commercial financing dashboard and active applications.';
+      } else if (tab === 'register') {
+        if (titleEl) titleEl.textContent = 'Register';
+        if (subtitleEl) subtitleEl.textContent = 'Create your commercial borrower profile in minutes.';
+      } else if (tab === 'forgot') {
+        if (titleEl) titleEl.textContent = 'Reset Password';
+        if (subtitleEl) subtitleEl.textContent = 'Enter your registered business email to recover your account.';
+      }
+    }
+
+    // Password Visibility Toggle
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input) {
+        if (input.type === 'password') {
+          input.type = 'text';
+          btn.innerHTML = '<i class="bi bi-eye-slash"></i>';
+        } else {
+          input.type = 'password';
+          btn.innerHTML = '<i class="bi bi-eye"></i>';
+        }
+      }
+    }
+
+    // Password Strength Meter
+    const regPassInput = document.getElementById('reg-password');
+    regPassInput?.addEventListener('input', (e) => {
+      const val = e.target.value;
+      const bar = document.getElementById('pwd-strength-bar');
+      const label = document.getElementById('pwd-strength-label');
+      let score = 0;
+
+      if (val.length >= 8) score += 30;
+      if (/[A-Z]/.test(val)) score += 25;
+      if (/[0-9]/.test(val)) score += 25;
+      if (/[^A-Za-z0-9]/.test(val)) score += 20;
+
+      if (bar && label) {
+        bar.style.width = score + '%';
+        if (score < 40) {
+          bar.className = 'h-full bg-rose-500 rounded-full transition-all';
+          label.textContent = 'Weak';
+          label.className = 'font-bold text-rose-500';
+        } else if (score < 75) {
+          bar.className = 'h-full bg-amber-500 rounded-full transition-all';
+          label.textContent = 'Moderate';
+          label.className = 'font-bold text-amber-500';
+        } else {
+          bar.className = 'h-full bg-emerald-500 rounded-full transition-all';
+          label.textContent = 'Strong';
+          label.className = 'font-bold text-emerald-500';
+        }
+      }
+    });
+
+    // Login Submission
+    document.getElementById('form-login')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const pass = document.getElementById('login-password').value;
+
+      const res = window.storage?.login(email, pass);
+      if (res?.success) {
+        window.App?.showToast('Signed In Successfully!', `Welcome back, ${res.user.name}. Redirecting to Home Page...`, 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 700);
+      } else {
+        window.App?.showToast('Authentication Error', res?.message || 'Invalid credentials.', 'error');
+      }
+    });
+
+    // Registration Submission
+    document.getElementById('form-register')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pass = document.getElementById('reg-password').value;
+      const confirmPass = document.getElementById('reg-confirm-password').value;
+
+      if (pass !== confirmPass) {
+        window.App?.showToast('Password Mismatch', 'The passwords you entered do not match.', 'error');
+        return;
+      }
+
+      const res = window.storage?.register({
+        name: document.getElementById('reg-name').value,
+        email: document.getElementById('reg-email').value,
+        phone: document.getElementById('reg-phone').value,
+        businessName: document.getElementById('reg-biz-name').value,
+        entityType: document.getElementById('reg-biz-entity').value,
+        password: pass
+      });
+
+      if (res?.success) {
+        window.App?.showToast('Account Created!', `Welcome to EquiCapital, ${res.user.name}. Redirecting to Home Page...`, 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 700);
+      } else {
+        window.App?.showToast('Registration Error', res?.message || 'Registration failed.', 'error');
+      }
+    });
+
+    // Forgot Password Submission
+    document.getElementById('form-forgot')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const alertBox = document.getElementById('forgot-success-alert');
+      alertBox?.classList.remove('hidden');
+      window.App?.showToast('Recovery Link Sent', 'Simulated recovery instructions dispatched.', 'info');
+    });
+
+    // Social SSO Logins (Automatically login as user@equicapital.com and redirect to home page)
+    document.querySelectorAll('.social-demo-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const provider = btn.getAttribute('data-provider') || (btn.textContent.includes('Google') ? 'Google' : 'Microsoft');
+        const res = window.storage?.loginWithSSO ? window.storage.loginWithSSO(provider) : window.storage?.login('user@equicapital.com', '1234');
+        const user = res?.user || { email: 'user@equicapital.com' };
+        window.App?.showToast(`${provider} Sign In`, `Signed in as ${user.email}. Redirecting to Home Page...`, 'success');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 600);
+      });
+    });
+
+    // Check URL params on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('mode') === 'register') {
+        switchAuthTab('register');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Funding Portal & Dashboard | EquiCapital</title>
+  <meta name="description" content="Commercial loan and equipment financing dashboard. Track real-time underwriting stages, upload documents, review lender offers, and manage business credit facilities.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['selector', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0F172A',
+              slate: '#1E293B',
+              cyan: '#2AAECE',
+              emerald: '#2AAECE',
+              'emerald-hover': '#1E94B1',
+              gold: '#F59E0B',
+              blue: '#2563EB',
+              rose: '#EF4444'
+            },
+            emerald: {
+              50: '#F0FBFD',
+              100: '#E8F7F3',
+              200: '#BAEBF4',
+              300: '#7CD5E9',
+              400: '#46BFDC',
+              500: '#2AAECE',
+              600: '#1E94B1',
+              700: '#17768E',
+              800: '#155E72',
+              900: '#144E5E',
+              950: '#073340'
+            },
+            teal: {
+              50: '#F0FBFD',
+              100: '#E8F7F3',
+              200: '#BAEBF4',
+              300: '#7CD5E9',
+              400: '#46BFDC',
+              500: '#2AAECE',
+              600: '#1E94B1',
+              700: '#17768E',
+              800: '#155E72',
+              900: '#144E5E',
+              950: '#073340'
+            },
+            cyan: {
+              50: '#F0FBFD',
+              100: '#E8F7F3',
+              200: '#BAEBF4',
+              300: '#7CD5E9',
+              400: '#46BFDC',
+              500: '#2AAECE',
+              600: '#1E94B1',
+              700: '#17768E',
+              800: '#155E72',
+              900: '#144E5E',
+              950: '#073340'
+            },
+            cream: {
+              50: '#FDFBF7',
+              100: '#F6F1E9',
+              200: '#EFE8DC',
+              300: '#E7DEC9',
+              400: '#DFD2B6',
+              500: '#D4C3A3'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            heading: ['"Space Grotesk"', '"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom Core Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="business-client-dashboard" class="bg-[#FDFBF7] dark:bg-[#090E17] text-slate-900 dark:text-slate-100 min-h-screen flex antialiased selection:bg-[#2AAECE] selection:text-white w-full max-w-full overflow-x-hidden">
+
+  <!-- =========================================================================
+       SIDEBAR NAVIGATION (Fixed Desktop, Off-Canvas Mobile)
+       ========================================================================= -->
+  <aside id="dashboard-sidebar" class="fixed top-0 bottom-0 left-0 w-72 bg-white dark:bg-[#0F172A] border-r border-[#E8E1D5] dark:border-slate-800 z-40 flex flex-col justify-between transition-transform duration-300 -translate-x-full lg:translate-x-0">
+    
+    <div>
+      <!-- Sidebar Header & Logo -->
+      <div class="h-20 px-6 flex items-center justify-between border-b border-slate-100 dark:border-slate-800">
+        <a href="index.html" class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-md shadow-emerald-500/20">
+            <i class="bi bi-shield-check text-xl"></i>
+          </div>
+          <div>
+            <span class="font-heading text-base font-bold tracking-tight text-slate-900 dark:text-white block leading-none">
+              Equi<span class="text-emerald-500">Capital</span>
+            </span>
+            <span class="text-[9px] uppercase font-bold tracking-widest text-slate-500 dark:text-slate-400 block mt-1">
+              COMMERCIAL FINANCE BROKER
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- User Mini Profile Pill -->
+      <div class="p-4 mx-4 my-4 rounded-2xl bg-[#F6F1E9] dark:bg-slate-900/60 border border-[#E8E1D5] dark:border-slate-800 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold flex items-center justify-center text-sm flex-shrink-0 border border-emerald-500/30">
+          AV
+        </div>
+        <div class="overflow-hidden">
+          <h5 class="user-display-name text-xs font-bold text-slate-900 dark:text-white truncate">Alexander Vance</h5>
+          <p class="user-display-business text-[11px] text-slate-500 truncate">Vance Heavy Hauling LLC</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="px-4 space-y-1 text-xs font-semibold">
+        <a href="#overview" class="dashboard-nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold" data-view="overview">
+          <i class="bi bi-grid-fill text-base"></i>
+          <span>Dashboard Overview</span>
+        </a>
+
+        <a href="#new-application" class="dashboard-nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" data-view="new-application">
+          <i class="bi bi-plus-circle-fill text-base text-emerald-500"></i>
+          <span>New Application (Wizard)</span>
+        </a>
+
+        <a href="#applications" class="dashboard-nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" data-view="applications">
+          <i class="bi bi-clock-history text-base"></i>
+          <span>My Applications & Status</span>
+        </a>
+
+        <a href="#documents" class="dashboard-nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" data-view="documents">
+          <i class="bi bi-folder-check text-base"></i>
+          <span>Document Upload Center</span>
+        </a>
+
+        <a href="#offers" class="dashboard-nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" data-view="offers">
+          <i class="bi bi-award-fill text-base text-amber-500"></i>
+          <span>Lender Offers Issued</span>
+        </a>
+
+        <a href="#messages" class="dashboard-nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" data-view="messages">
+          <i class="bi bi-chat-dots-fill text-base"></i>
+          <span>Broker Messages</span>
+        </a>
+
+        <a href="#saved-calculations" class="dashboard-nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" data-view="saved-calculations">
+          <i class="bi bi-calculator text-base"></i>
+          <span>Saved Scenarios</span>
+        </a>
+
+        <a href="#settings" class="dashboard-nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-colors text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" data-view="settings">
+          <i class="bi bi-gear-fill text-base"></i>
+          <span>Profile & Settings</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Sidebar Footer / Logout -->
+    <div class="p-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+      <a href="index.html" class="flex items-center gap-2.5 px-3.5 py-2 text-xs font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
+        <i class="bi bi-box-arrow-left"></i> Return to Main Website
+      </a>
+      <button class="dashboard-nav-item w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-semibold text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl transition-colors" data-view="logout">
+        <i class="bi bi-power"></i> Log Out
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- Mobile Sidebar Backdrop -->
+  <div id="dashboard-sidebar-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+
+  <!-- =========================================================================
+       MAIN CONTENT WRAPPER
+       ========================================================================= -->
+  <div class="flex-1 lg:pl-72 flex flex-col min-h-screen w-full max-w-full min-w-0">
+    
+    <!-- DASHBOARD TOPBAR -->
+    <header class="sticky top-0 z-40 h-16 sm:h-20 glass-header px-3 sm:px-8 flex items-center justify-between w-full max-w-full min-w-0 gap-2">
+      
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+        <!-- Mobile Toggle Hamburger -->
+        <button id="dashboard-menu-toggle" class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 lg:hidden shrink-0" aria-label="Open Sidebar Menu">
+          <i class="bi bi-list text-xl"></i>
+        </button>
+
+        <!-- Search Bar -->
+        <div class="relative flex-1 max-w-[170px] xs:max-w-[220px] sm:max-w-xs md:max-w-sm">
+          <span class="absolute inset-y-0 left-0 pl-2.5 sm:pl-3 flex items-center text-slate-400 text-xs sm:text-sm pointer-events-none">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" id="dashboard-topbar-search" placeholder="Search..." 
+                 class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-xs pl-7 sm:pl-9 pr-2 sm:pr-3 py-1.5 sm:py-2 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500">
+        </div>
+      </div>
+
+      <!-- Topbar Utilities -->
+      <div class="flex items-center gap-1 sm:gap-2 shrink-0">
+        
+        <!-- Reviewer Demo Status Simulator Button -->
+        <button id="demo-simulate-status-btn" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold hover:bg-amber-500/20 transition-colors" title="Demo Tool: Advance status of application">
+          <i class="bi bi-fast-forward-fill"></i>
+          <span>Simulate Status Advance</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button class="theme-toggle-btn p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300" title="Toggle Theme" aria-label="Toggle Theme">
+          <i class="bi bi-moon-stars-fill theme-toggle-icon"></i>
+        </button>
+
+        <!-- RTL Toggle (Arrows) -->
+        <button class="rtl-toggle-btn p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center" title="Toggle Text Direction (LTR / RTL)" aria-label="Toggle Text Direction">
+          <i class="bi bi-arrow-left-right"></i>
+        </button>
+
+        <!-- Notification Bell & Panel -->
+        <div class="relative">
+          <button id="notif-bell-btn" class="relative p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300" title="Notifications" aria-label="Notifications">
+            <i class="bi bi-bell-fill"></i>
+            <span id="notif-unread-badge" class="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 text-white rounded-full text-[9px] font-bold flex items-center justify-center">
+              2
+            </span>
+          </button>
+
+          <!-- Notification Dropdown Panel -->
+          <div id="notif-dropdown-panel" class="absolute right-0 mt-3 w-72 sm:w-80 md:w-96 max-w-[calc(100vw-1.5rem)] glass-card rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 hidden z-50 overflow-hidden">
+            <div class="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Notifications</span>
+              <button id="notif-mark-read-btn" class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">
+                Mark All Read
+              </button>
+            </div>
+            <div id="notif-items-container" class="max-h-80 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </header>
+
+    <!-- DASHBOARD VIEW CONTAINERS -->
+    <main class="flex-1 p-3.5 sm:p-8 w-full max-w-full min-w-0">
+
+      <!-- =====================================================================
+           VIEW 1: OVERVIEW
+           ===================================================================== -->
+      <section id="view-overview" class="dashboard-view space-y-6 sm:space-y-8 min-w-0">
+        
+        <!-- Welcome Header Banner -->
+        <div class="dashboard-hero-banner rounded-2xl sm:rounded-3xl p-5 sm:p-8 text-white relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 min-w-0">
+          <!-- Ambient Theme-Aware Glow Orbs -->
+          <div class="hero-glow-blob hero-blob-1 !w-64 sm:!w-96 !h-64 sm:!h-96 !-top-20 !-right-20 !bg-white/10 dark:!bg-cyan-400/10 pointer-events-none"></div>
+          <div class="hero-glow-blob hero-blob-2 !w-56 sm:!w-72 !h-56 sm:!h-72 !-bottom-20 !-left-10 !bg-teal-400/10 dark:!bg-emerald-400/10 pointer-events-none"></div>
+
+          <div class="relative z-10 space-y-2 min-w-0">
+            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-white/15 dark:bg-emerald-500/15 border border-white/20 dark:border-emerald-500/25 px-2.5 sm:px-3 py-1 rounded-full text-white inline-block">
+              Underwriting Dashboard
+            </span>
+            <h1 class="text-xl sm:text-3xl font-extrabold font-heading leading-tight break-words">
+              Welcome back, <span class="user-display-name">Alexander</span>!
+            </h1>
+            <p class="text-xs sm:text-sm text-emerald-50 max-w-xl leading-relaxed">
+              You have <strong class="text-white font-bold">2 active commercial applications</strong>. Tier-1 lender offers have been issued for your Caterpillar 336 excavator.
+            </p>
+          </div>
+          <div class="relative z-10 flex flex-wrap gap-2 w-full sm:w-auto">
+            <button class="btn-secondary text-xs px-3.5 py-2.5 bg-white text-slate-900 hover:bg-slate-100 border-none shadow-md flex-1 sm:flex-none justify-center" onclick="dashboard.switchView('new-application')">
+              <i class="bi bi-plus-lg"></i> <span>New Application</span>
+            </button>
+            <button class="btn-secondary text-xs px-3.5 py-2.5 bg-white/10 text-white hover:bg-white/20 border-white/20 flex-1 sm:flex-none justify-center" onclick="dashboard.switchView('offers')">
+              <i class="bi bi-award"></i> <span>Review Offers</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6 min-w-0">
+          
+          <div class="glass-card rounded-xl sm:rounded-2xl p-3.5 sm:p-5 border border-slate-200 dark:border-slate-800 min-w-0">
+            <div class="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+              <span class="text-[10px] sm:text-xs text-slate-500 font-semibold uppercase tracking-wider truncate">Total Applications</span>
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-xs sm:text-sm shrink-0">
+                <i class="bi bi-folder-fill"></i>
+              </div>
+            </div>
+            <div id="stat-total-apps" class="text-xl sm:text-3xl font-extrabold font-tabular text-slate-900 dark:text-white">5</div>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 mt-1 truncate">2 active in pipeline</p>
+          </div>
+
+          <div class="glass-card rounded-xl sm:rounded-2xl p-3.5 sm:p-5 border border-slate-200 dark:border-slate-800 min-w-0">
+            <div class="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+              <span class="text-[10px] sm:text-xs text-slate-500 font-semibold uppercase tracking-wider truncate">Capital Requested</span>
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xs sm:text-sm shrink-0">
+                <i class="bi bi-cash-stack"></i>
+              </div>
+            </div>
+            <div id="stat-total-requested" class="text-xl sm:text-3xl font-extrabold font-tabular text-emerald-600 dark:text-emerald-400 truncate">$1,035k</div>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 mt-1 truncate">Across equipment</p>
+          </div>
+
+          <div class="glass-card rounded-xl sm:rounded-2xl p-3.5 sm:p-5 border border-slate-200 dark:border-slate-800 min-w-0">
+            <div class="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+              <span class="text-[10px] sm:text-xs text-slate-500 font-semibold uppercase tracking-wider truncate">Approved / Offers</span>
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-xs sm:text-sm shrink-0">
+                <i class="bi bi-check-circle-fill"></i>
+              </div>
+            </div>
+            <div id="stat-approved-total" class="text-xl sm:text-3xl font-extrabold font-tabular text-slate-900 dark:text-white truncate">$360k</div>
+            <p class="text-[10px] sm:text-[11px] text-emerald-500 font-semibold mt-1 truncate">Ready for closing</p>
+          </div>
+
+          <div class="glass-card rounded-xl sm:rounded-2xl p-3.5 sm:p-5 border border-slate-200 dark:border-slate-800 min-w-0">
+            <div class="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+              <span class="text-[10px] sm:text-xs text-slate-500 font-semibold uppercase tracking-wider truncate">Docs Pending</span>
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-rose-500/10 text-rose-500 flex items-center justify-center text-xs sm:text-sm shrink-0">
+                <i class="bi bi-file-earmark-arrow-up-fill"></i>
+              </div>
+            </div>
+            <div id="stat-pending-docs" class="text-xl sm:text-3xl font-extrabold font-tabular text-rose-500">2</div>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 mt-1 truncate">Insurance binder</p>
+          </div>
+
+        </div>
+
+        <!-- Primary Application Live Approval Stepper -->
+        <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-slate-200 dark:border-slate-800 min-w-0 overflow-hidden" id="overview-active-tracker-container">
+          <!-- Dynamically populated by dashboard.js -->
+        </div>
+
+        <!-- Pipeline Bar Chart & Assigned Broker Card -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 xl:gap-8 items-start min-w-0">
+          
+          <!-- Pipeline Chart -->
+          <div class="lg:col-span-7 xl:col-span-8 glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-8 min-w-0 overflow-hidden">
+            <div class="flex items-center justify-between mb-4 gap-2">
+              <div class="min-w-0">
+                <h4 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white truncate">Pipeline Distribution</h4>
+                <p class="text-[11px] sm:text-xs text-slate-500 truncate">Commercial requests by phase</p>
+              </div>
+              <button class="text-xs text-emerald-500 font-bold hover:underline shrink-0" onclick="dashboard.switchView('applications')">
+                View All &rarr;
+              </button>
+            </div>
+            <div class="h-56 sm:h-64 w-full relative min-w-0">
+              <canvas id="pipeline-chart"></canvas>
+            </div>
+          </div>
+
+          <!-- Assigned Broker Card -->
+          <div class="lg:col-span-5 xl:col-span-4 glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4 sm:space-y-5 min-w-0 w-full max-w-full overflow-hidden">
+            <span class="text-[10px] sm:text-xs uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400 block">
+              Dedicated Financial Broker
+            </span>
+
+            <div class="flex items-center gap-3">
+              <img id="overview-broker-avatar" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80" 
+                   alt="David Vance" class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl object-cover border-2 border-emerald-500 shrink-0 shadow-sm">
+              <div class="min-w-0 flex-1">
+                <h4 id="overview-broker-name" class="font-bold text-sm sm:text-base text-slate-900 dark:text-white truncate">David Vance</h4>
+                <p id="overview-broker-title" class="text-xs text-slate-500 truncate">Senior Commercial Advisor</p>
+                <div class="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-emerald-500 font-semibold mt-0.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0"></span> <span class="truncate">Online &bull; Direct Line</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-2 text-xs border-y border-slate-100 dark:border-slate-800 py-3 min-w-0">
+              <div class="flex items-center justify-between gap-2.5 min-w-0">
+                <div class="flex items-center gap-2 shrink-0 text-slate-500 dark:text-slate-400 font-medium">
+                  <span class="w-6 h-6 rounded-md bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs shrink-0">
+                    <i class="bi bi-telephone-fill"></i>
+                  </span>
+                  <span>Phone:</span>
+                </div>
+                <a href="tel:+18005824190" id="overview-broker-phone" class="text-slate-800 dark:text-slate-200 font-bold hover:text-emerald-500 transition-colors text-right truncate min-w-0 font-tabular">
+                  +1 (800) 582-4190 x204
+                </a>
+              </div>
+              <div class="flex items-center justify-between gap-2.5 min-w-0">
+                <div class="flex items-center gap-2 shrink-0 text-slate-500 dark:text-slate-400 font-medium">
+                  <span class="w-6 h-6 rounded-md bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs shrink-0">
+                    <i class="bi bi-envelope-fill"></i>
+                  </span>
+                  <span>Email:</span>
+                </div>
+                <a href="mailto:d.vance@equicapital.com" id="overview-broker-email" class="text-slate-800 dark:text-slate-200 font-bold hover:text-emerald-500 transition-colors text-right truncate min-w-0" title="d.vance@equicapital.com">
+                  d.vance@equicapital.com
+                </a>
+              </div>
+            </div>
+
+            <div class="space-y-2 pt-1">
+              <button class="btn-primary w-full text-xs py-2.5 justify-center" onclick="dashboard.switchView('messages')">
+                <i class="bi bi-chat-left-text-fill"></i> Send Message
+              </button>
+              <button class="btn-secondary w-full text-xs py-2.5 justify-center" onclick="App.openModal('modal-schedule-call')">
+                <i class="bi bi-calendar-event"></i> Schedule Advisor Call
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================================
+           VIEW 2: NEW APPLICATION (6-STEP WIZARD)
+           ===================================================================== -->
+      <section id="view-new-application" class="dashboard-view hidden space-y-8">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 min-w-0">
+          <div class="space-y-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400 shrink-0">
+                Commercial Credit Intake
+              </span>
+              <span id="wizard-progress-pill" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 whitespace-nowrap shrink-0 transition-all duration-300">
+                Step 1 of 6 &bull; 17% Complete
+              </span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold font-heading text-slate-900 dark:text-white leading-tight">
+              Commercial Loan Application Wizard
+            </h2>
+          </div>
+          <button id="wizard-save-draft-btn" class="btn-secondary text-xs py-2 px-3.5 self-start sm:self-auto inline-flex items-center gap-1.5 shrink-0 shadow-sm">
+            <i class="bi bi-save"></i> <span>Save Draft</span>
+          </button>
+        </div>
+
+        <!-- 6-Node Stepper Progress Indicator -->
+        <div class="glass-card rounded-2xl p-4 sm:p-6 overflow-x-auto">
+          <div class="flex items-center justify-between min-w-0 md:min-w-[620px] gap-1 sm:gap-2">
+            
+            <!-- Step 1: Solution -->
+            <div id="wizard-step-item-1" class="wizard-step-item is-clickable flex items-center gap-2 cursor-pointer transition-all" onclick="dashboard.jumpToWizardStep(1)" title="Step 1: Solution">
+              <div id="wizard-step-node-1" class="wizard-node w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs bg-emerald-500 text-white shadow-glow ring-4 ring-emerald-500/25 is-active">1</div>
+              <span id="wizard-step-label-1" class="wizard-label text-xs font-bold text-slate-900 dark:text-white is-active">1. Solution</span>
+            </div>
+            <div class="wizard-line-track flex-1 min-w-[20px] max-w-[48px] h-1 bg-slate-200 dark:bg-slate-700/80 rounded-full overflow-hidden mx-1 sm:mx-2">
+              <div id="wizard-step-line-1" class="wizard-line-fill h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+            </div>
+
+            <!-- Step 2: Business -->
+            <div id="wizard-step-item-2" class="wizard-step-item flex items-center gap-2 transition-all" onclick="dashboard.jumpToWizardStep(2)" title="Step 2: Business">
+              <div id="wizard-step-node-2" class="wizard-node w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs bg-slate-200 dark:bg-slate-700 text-slate-500">2</div>
+              <span id="wizard-step-label-2" class="wizard-label text-xs font-bold text-slate-500">2. Business</span>
+            </div>
+            <div class="wizard-line-track flex-1 min-w-[20px] max-w-[48px] h-1 bg-slate-200 dark:bg-slate-700/80 rounded-full overflow-hidden mx-1 sm:mx-2">
+              <div id="wizard-step-line-2" class="wizard-line-fill h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+            </div>
+
+            <!-- Step 3: Equipment -->
+            <div id="wizard-step-item-3" class="wizard-step-item flex items-center gap-2 transition-all" onclick="dashboard.jumpToWizardStep(3)" title="Step 3: Equipment">
+              <div id="wizard-step-node-3" class="wizard-node w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs bg-slate-200 dark:bg-slate-700 text-slate-500">3</div>
+              <span id="wizard-step-label-3" class="wizard-label text-xs font-bold text-slate-500">3. Equipment</span>
+            </div>
+            <div class="wizard-line-track flex-1 min-w-[20px] max-w-[48px] h-1 bg-slate-200 dark:bg-slate-700/80 rounded-full overflow-hidden mx-1 sm:mx-2">
+              <div id="wizard-step-line-3" class="wizard-line-fill h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+            </div>
+
+            <!-- Step 4: Owner -->
+            <div id="wizard-step-item-4" class="wizard-step-item flex items-center gap-2 transition-all" onclick="dashboard.jumpToWizardStep(4)" title="Step 4: Owner">
+              <div id="wizard-step-node-4" class="wizard-node w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs bg-slate-200 dark:bg-slate-700 text-slate-500">4</div>
+              <span id="wizard-step-label-4" class="wizard-label text-xs font-bold text-slate-500">4. Owner</span>
+            </div>
+            <div class="wizard-line-track flex-1 min-w-[20px] max-w-[48px] h-1 bg-slate-200 dark:bg-slate-700/80 rounded-full overflow-hidden mx-1 sm:mx-2">
+              <div id="wizard-step-line-4" class="wizard-line-fill h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+            </div>
+
+            <!-- Step 5: Docs -->
+            <div id="wizard-step-item-5" class="wizard-step-item flex items-center gap-2 transition-all" onclick="dashboard.jumpToWizardStep(5)" title="Step 5: Docs">
+              <div id="wizard-step-node-5" class="wizard-node w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs bg-slate-200 dark:bg-slate-700 text-slate-500">5</div>
+              <span id="wizard-step-label-5" class="wizard-label text-xs font-bold text-slate-500">5. Docs</span>
+            </div>
+            <div class="wizard-line-track flex-1 min-w-[20px] max-w-[48px] h-1 bg-slate-200 dark:bg-slate-700/80 rounded-full overflow-hidden mx-1 sm:mx-2">
+              <div id="wizard-step-line-5" class="wizard-line-fill h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+            </div>
+
+            <!-- Step 6: Submit -->
+            <div id="wizard-step-item-6" class="wizard-step-item flex items-center gap-2 transition-all" onclick="dashboard.jumpToWizardStep(6)" title="Step 6: Submit">
+              <div id="wizard-step-node-6" class="wizard-node w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs bg-slate-200 dark:bg-slate-700 text-slate-500">6</div>
+              <span id="wizard-step-label-6" class="wizard-label text-xs font-bold text-slate-500">6. Submit</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Wizard Box Container -->
+        <div id="wizard-container" class="glass-card rounded-3xl p-6 sm:p-10 space-y-8">
+          
+          <!-- STEP 1: Solution Type -->
+          <div id="wizard-form-step-1" class="wizard-step-panel space-y-6">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Step 1: Select Desired Financing Facility</h3>
+            <p class="text-xs text-slate-500">Choose the financing structure that best matches your tax and operational objectives.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <label class="p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-500/10 cursor-pointer flex items-start gap-3">
+                <input type="radio" name="wizard-financing-type" value="Equipment Financing" checked class="mt-1 text-emerald-500">
+                <div>
+                  <strong class="text-sm font-bold text-slate-900 dark:text-white block">Equipment Financing</strong>
+                  <span class="text-xs text-slate-500 mt-1 block">Full title ownership, Section 179 tax deduction.</span>
+                </div>
+              </label>
+
+              <label class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500 cursor-pointer flex items-start gap-3">
+                <input type="radio" name="wizard-financing-type" value="Equipment Leasing" class="mt-1 text-emerald-500">
+                <div>
+                  <strong class="text-sm font-bold text-slate-900 dark:text-white block">Equipment Leasing</strong>
+                  <span class="text-xs text-slate-500 mt-1 block">Lowest monthly payment, FMV or $1 buyout.</span>
+                </div>
+              </label>
+
+              <label class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500 cursor-pointer flex items-start gap-3">
+                <input type="radio" name="wizard-financing-type" value="Heavy Machinery" class="mt-1 text-emerald-500">
+                <div>
+                  <strong class="text-sm font-bold text-slate-900 dark:text-white block">Heavy Machinery Loan</strong>
+                  <span class="text-xs text-slate-500 mt-1 block">Excavators, cranes, pavers up to 84 months.</span>
+                </div>
+              </label>
+
+              <label class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500 cursor-pointer flex items-start gap-3">
+                <input type="radio" name="wizard-financing-type" value="Commercial Trucks" class="mt-1 text-emerald-500">
+                <div>
+                  <strong class="text-sm font-bold text-slate-900 dark:text-white block">Commercial Fleet Trucks</strong>
+                  <span class="text-xs text-slate-500 mt-1 block">Class 8 sleepers, day cabs & reefer trailers.</span>
+                </div>
+              </label>
+
+              <label class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500 cursor-pointer flex items-start gap-3">
+                <input type="radio" name="wizard-financing-type" value="Working Capital" class="mt-1 text-emerald-500">
+                <div>
+                  <strong class="text-sm font-bold text-slate-900 dark:text-white block">Working Capital Loan</strong>
+                  <span class="text-xs text-slate-500 mt-1 block">Unsecured cash for payroll & bulk materials.</span>
+                </div>
+              </label>
+
+              <label class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500 cursor-pointer flex items-start gap-3">
+                <input type="radio" name="wizard-financing-type" value="Sale-Leaseback" class="mt-1 text-emerald-500">
+                <div>
+                  <strong class="text-sm font-bold text-slate-900 dark:text-white block">Sale-Leaseback</strong>
+                  <span class="text-xs text-slate-500 mt-1 block">Monetize equity in existing owned equipment.</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- STEP 2: Business Info -->
+          <div id="wizard-form-step-2" class="wizard-step-panel space-y-6 hidden">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Step 2: Business & Operating Profile</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Legal Entity Name
+                </label>
+                <input type="text" id="wizard-biz-name" value="Vance Heavy Hauling & Excavation LLC" class="form-input text-xs sm:text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Entity Legal Structure
+                </label>
+                <select id="wizard-biz-entity" class="form-select text-xs sm:text-sm">
+                  <option value="Limited Liability Company (LLC)" selected>Limited Liability Company (LLC)</option>
+                  <option value="C-Corporation">C-Corporation</option>
+                  <option value="S-Corporation">S-Corporation</option>
+                  <option value="Partnership">Partnership</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Primary Operating Industry
+                </label>
+                <input type="text" id="wizard-biz-industry" value="Heavy Construction & Earthmoving" class="form-input text-xs sm:text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Years in Continuous Operation
+                </label>
+                <input type="number" id="wizard-biz-years" value="6" min="1" max="50" class="form-input text-xs sm:text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Approx. Annual Gross Revenue
+                </label>
+                <input type="text" id="wizard-biz-revenue" value="$2,400,000" class="form-input text-xs sm:text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Total Active Full-Time Employees
+                </label>
+                <input type="number" id="wizard-biz-employees" value="18" class="form-input text-xs sm:text-sm">
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: Equipment Details -->
+          <div id="wizard-form-step-3" class="wizard-step-panel space-y-6 hidden">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Step 3: Equipment Asset & Funding Request</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Equipment Category
+                </label>
+                <select id="wizard-equip-category" class="form-select text-xs sm:text-sm">
+                  <option value="Heavy Construction Machinery" selected>Heavy Construction Machinery</option>
+                  <option value="Commercial Transportation">Commercial Transportation & Trucks</option>
+                  <option value="CNC & Precision Manufacturing">CNC & Precision Manufacturing</option>
+                  <option value="Medical & Clinical Diagnostics">Medical & Clinical Diagnostics</option>
+                  <option value="Agriculture & Farm">Agriculture & Farm Rigs</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Equipment Description (Year, Make, Model)
+                </label>
+                <input type="text" id="wizard-equip-desc" value="2024 Caterpillar 336 Next Gen Hydraulic Excavator" class="form-input text-xs sm:text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Authorized Vendor / Dealer Name
+                </label>
+                <input type="text" id="wizard-vendor-name" value="Midwest Machinery Exchange" class="form-input text-xs sm:text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Desired Financing Term (Months)
+                </label>
+                <select id="wizard-desired-term" class="form-select text-xs sm:text-sm">
+                  <option value="36">36 Months (3 Years)</option>
+                  <option value="48">48 Months (4 Years)</option>
+                  <option value="60" selected>60 Months (5 Years)</option>
+                  <option value="72">72 Months (6 Years)</option>
+                  <option value="84">84 Months (7 Years)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Funding Amount Requested ($)
+                </label>
+                <input type="number" id="wizard-amount" value="285000" min="5000" max="5000000" class="form-input text-xs sm:text-sm font-bold font-tabular">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Proposed Down Payment ($)
+                </label>
+                <input type="number" id="wizard-down-payment" value="35000" min="0" max="1000000" class="form-input text-xs sm:text-sm font-bold font-tabular">
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: Owner Info -->
+          <div id="wizard-form-step-4" class="wizard-step-panel space-y-6 hidden">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Step 4: Principal Guarantor & Beneficial Owner</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Managing Owner Full Name
+                </label>
+                <input type="text" id="wizard-owner-name" value="Alexander Vance" class="form-input text-xs sm:text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Ownership Percentage (%)
+                </label>
+                <input type="number" id="wizard-owner-pct" value="100" min="20" max="100" class="form-input text-xs sm:text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Direct Email Address
+                </label>
+                <input type="email" id="wizard-owner-email" value="alexander@vancehauling.com" class="form-input text-xs sm:text-sm">
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Primary Mobile Number
+                </label>
+                <input type="tel" id="wizard-owner-phone" value="+1 (555) 382-9104" class="form-input text-xs sm:text-sm">
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 5: Documents (Integrated Upload Step) -->
+          <div id="wizard-form-step-5" class="wizard-step-panel space-y-6 hidden">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Step 5: Initial Document Upload</h3>
+            <p class="text-xs text-slate-500">Attach your equipment quote or 3 months bank statements now to expedite same-day term sheet generation. (You can also upload these later from the Document Center).</p>
+
+            <div class="p-8 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 text-center space-y-3 bg-slate-50/50 dark:bg-slate-900/40">
+              <i class="bi bi-cloud-arrow-up-fill text-4xl text-emerald-500 inline-block"></i>
+              <h5 class="font-bold text-sm text-slate-900 dark:text-white">Drag & drop equipment quote or bank PDFs here</h5>
+              <p class="text-xs text-slate-400">PDF, JPG, PNG, XLSX up to 25MB</p>
+              <button type="button" class="btn-secondary text-xs py-2 px-4 inline-flex" onclick="document.getElementById('doc-file-input')?.click()">
+                Browse Local Files
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 6: Review & Submit -->
+          <div id="wizard-form-step-6" class="wizard-step-panel space-y-6 hidden">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Step 6: Review & Submit Commercial Dossier</h3>
+            
+            <div id="wizard-review-summary">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+              <label class="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 cursor-pointer">
+                <input type="checkbox" id="wizard-consent-check" checked class="mt-0.5 rounded text-emerald-500 focus:ring-emerald-400">
+                <span class="leading-relaxed">
+                  I certify that all information submitted is accurate and represents active commercial business operations. I authorize EquiCapital and its syndicate partners to perform a soft credit check and verify banking deposits.
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Step Navigation Button Controls -->
+          <div class="flex items-center justify-between pt-6 border-t border-slate-100 dark:border-slate-800">
+            <button id="wizard-back-btn" class="btn-secondary text-xs py-2.5 px-5" style="visibility: hidden;">
+              <i class="bi bi-arrow-left"></i> Back
+            </button>
+            <button id="wizard-next-btn" class="btn-primary text-xs py-2.5 px-6 shadow-glow">
+              Continue Step <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Wizard Confirmation Success State (Hidden until submitted) -->
+        <div id="wizard-confirmation-view" class="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-6 hidden">
+          <div class="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-3xl mx-auto shadow-glow">
+            <i class="bi bi-check-lg"></i>
+          </div>
+          <div class="space-y-2">
+            <span class="text-xs uppercase font-bold tracking-wider text-emerald-500">Submission Successful</span>
+            <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white">Commercial Facility File Opened!</h3>
+            <p class="text-sm text-slate-500 max-w-md mx-auto">
+              Your application <strong id="conf-app-id" class="text-slate-900 dark:text-white font-tabular">EQF-2026-XXXX</strong> for <strong id="conf-app-amount" class="text-emerald-500 font-tabular">$285,000</strong> has been dispatched to credit underwriting.
+            </p>
+          </div>
+          <div class="flex justify-center gap-3 pt-4">
+            <button class="btn-primary text-xs py-2.5 px-6" onclick="dashboard.switchView('applications')">
+              <i class="bi bi-eye"></i> Track in Applications
+            </button>
+            <button class="btn-secondary text-xs py-2.5 px-5" onclick="dashboard.switchView('overview')">
+              Return to Overview
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- =====================================================================
+           VIEW 3: MY APPLICATIONS & APPROVAL TRACKING TABLE
+           ===================================================================== -->
+      <section id="view-applications" class="dashboard-view hidden space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1">Portfolio Tracking</span>
+            <h2 class="text-2xl font-extrabold font-heading text-slate-900 dark:text-white">
+              My Loan Applications
+            </h2>
+          </div>
+          <button class="btn-primary text-xs py-2 px-4 shadow-glow" onclick="dashboard.switchView('new-application')">
+            <i class="bi bi-plus-lg"></i> Start New Application
+          </button>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div class="glass-card rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+          <div class="relative w-full sm:w-80">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
+              <i class="bi bi-search"></i>
+            </span>
+            <input type="text" id="app-search-input" placeholder="Search by ID, equipment, type..." 
+                   class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-xs pl-8 pr-3 py-2 text-slate-900 dark:text-white">
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+            <span class="text-xs text-slate-500 shrink-0">Status:</span>
+            <select id="app-status-filter" class="form-select text-xs py-1.5 flex-1 sm:w-44">
+              <option value="All">All Statuses</option>
+              <option value="Submitted">Submitted</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Underwriting">Underwriting</option>
+              <option value="Offer Issued">Offer Issued</option>
+              <option value="Funded">Funded</option>
+              <option value="Additional Documents Required">Docs Required</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Applications Table -->
+        <div class="glass-card rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-slate-200 dark:border-slate-800 max-w-full">
+          <div class="sm:hidden px-3.5 py-2 bg-slate-50 dark:bg-slate-900/60 border-b border-slate-100 dark:border-slate-800 text-[11px] text-slate-500 flex items-center justify-between">
+            <span class="flex items-center gap-1.5"><i class="bi bi-arrows-expand-vertical rotate-90 text-emerald-500"></i> Swipe horizontally</span>
+            <span class="text-[10px] text-slate-400">7 columns</span>
+          </div>
+          <div class="overflow-x-auto w-full no-scrollbar">
+            <table class="w-full text-left text-xs whitespace-nowrap min-w-[700px]">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold uppercase text-[11px] border-b border-slate-200 dark:border-slate-700">
+                <tr>
+                  <th class="py-3.5 px-4">Application ID</th>
+                  <th class="py-3.5 px-4">Facility & Equipment</th>
+                  <th class="py-3.5 px-4">Amount</th>
+                  <th class="py-3.5 px-4">Submitted</th>
+                  <th class="py-3.5 px-4">Underwriting Stage</th>
+                  <th class="py-3.5 px-4">Status</th>
+                  <th class="py-3.5 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="applications-table-body">
+                <!-- Populated dynamically by dashboard.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- =====================================================================
+           VIEW 4: DOCUMENT UPLOAD CENTER
+           ===================================================================== -->
+      <section id="view-documents" class="dashboard-view hidden space-y-6 sm:space-y-8 min-w-0">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1">Compliance Vault</span>
+            <h2 class="text-2xl font-extrabold font-heading text-slate-900 dark:text-white">
+              Document Upload Center
+            </h2>
+          </div>
+        </div>
+
+        <!-- Completeness Radial Ring & Quick Stats Card -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-center min-w-0">
+          
+          <div class="md:col-span-4 glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex items-center gap-4 sm:gap-5 min-w-0">
+            <div class="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="8" class="text-slate-200 dark:text-slate-800" fill="transparent"/>
+                <circle id="doc-completeness-circle" cx="50" cy="50" r="40" stroke="currentColor" stroke-width="8" class="text-emerald-500" stroke-linecap="round" fill="transparent" stroke-dasharray="251.2" stroke-dashoffset="62.8"/>
+              </svg>
+              <span id="doc-completeness-pct" class="absolute font-bold text-base sm:text-lg font-tabular text-slate-900 dark:text-white">75%</span>
+            </div>
+            <div class="min-w-0 flex-1">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white truncate">Dossier Completeness</h4>
+              <p class="text-xs text-slate-500 mt-1">6 of 8 required financial compliance documents approved.</p>
+            </div>
+          </div>
+
+          <!-- Drag and Drop Dropzone -->
+          <div class="md:col-span-8 glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-6 border-2 border-dashed border-slate-300 dark:border-slate-700 text-center min-w-0" id="doc-dropzone">
+            <i class="bi bi-cloud-arrow-up-fill text-3xl text-emerald-500 mb-2 inline-block"></i>
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white">Drag and drop bank statement or tax PDFs here</h4>
+            <p class="text-xs text-slate-400 mt-0.5">Supports PDF, XLSX, JPG, PNG up to 25MB</p>
+            
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2 sm:gap-3 mt-4 w-full max-w-md mx-auto">
+              <select id="doc-category-select" class="form-select text-xs py-2 w-full sm:w-52">
+                <option value="Bank Statements">Bank Statements (Last 6 Months)</option>
+                <option value="Tax Returns">Corporate Tax Returns (2024-2025)</option>
+                <option value="Equipment Invoice">Dealer Invoice / Bill of Sale</option>
+                <option value="Profit & Loss">Profit & Loss Statement (YTD)</option>
+                <option value="Proof of Insurance">Proof of Commercial Insurance</option>
+                <option value="Owner Identification">Owner Photo ID / Passport</option>
+              </select>
+              <button id="doc-browse-btn" class="btn-primary text-xs py-2 px-4 shadow-sm justify-center">
+                <i class="bi bi-folder-plus"></i> Browse Files
+              </button>
+              <input type="file" id="doc-file-input" class="hidden">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Document List -->
+        <div class="space-y-4">
+          <h3 class="font-bold text-base text-slate-900 dark:text-white">Current File Vault & Review Status</h3>
+          <div id="documents-list-container" class="space-y-3">
+            <!-- Populated dynamically by dashboard.js -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- =====================================================================
+           VIEW 5: OFFERS
+           ===================================================================== -->
+      <section id="view-offers" class="dashboard-view hidden space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1">Term Sheet Negotiation</span>
+            <h2 class="text-2xl font-extrabold font-heading text-slate-900 dark:text-white">
+              Institutional Lender Offers Issued
+            </h2>
+          </div>
+        </div>
+
+        <div id="offers-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Populated dynamically by dashboard.js -->
+        </div>
+
+      </section>
+
+      <!-- =====================================================================
+           VIEW 6: MESSAGES
+           ===================================================================== -->
+      <section id="view-messages" class="dashboard-view hidden space-y-5 sm:space-y-6 min-w-0">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+          <div>
+            <span class="text-xs uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1">Direct Advisor Channel</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold font-heading text-slate-900 dark:text-white">
+              Broker Communications
+            </h2>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            <span>Advisor David Vance is Online</span>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-8 flex flex-col h-[520px] sm:h-[560px] justify-between min-w-0">
+          
+          <!-- Conversation Scroll Box -->
+          <div id="messages-conversation-container" class="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2">
+            <!-- Rendered dynamically by dashboard.js -->
+          </div>
+
+          <!-- Message Input Bar -->
+          <div class="pt-3 sm:pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-2">
+            <input type="text" id="msg-input" placeholder="Type message to broker..." 
+                   class="form-input text-xs sm:text-sm py-2.5 sm:py-3 flex-1 min-w-0">
+            <button id="msg-send-btn" class="btn-primary text-xs sm:text-sm px-4 sm:px-6 py-2.5 sm:py-3 shadow-glow shrink-0">
+              <i class="bi bi-send-fill"></i> <span class="hidden xs:inline">Send</span>
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================================
+           VIEW 7: SAVED CALCULATIONS
+           ===================================================================== -->
+      <section id="view-saved-calculations" class="dashboard-view hidden space-y-5 sm:space-y-6 min-w-0">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+          <div>
+            <span class="text-xs uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1">Financial Scenarios</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold font-heading text-slate-900 dark:text-white">
+              Saved Calculator Scenarios
+            </h2>
+          </div>
+          <a href="calculator.html" class="btn-primary text-xs py-2 px-4 shadow-glow self-start sm:self-auto shrink-0">
+            <i class="bi bi-calculator"></i> Launch Calculator
+          </a>
+        </div>
+
+        <div id="saved-calculations-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 min-w-0">
+          <!-- Populated dynamically by dashboard.js -->
+        </div>
+
+      </section>
+
+      <!-- =====================================================================
+           VIEW 8: SETTINGS & PROFILE
+           ===================================================================== -->
+      <section id="view-settings" class="dashboard-view hidden space-y-6 sm:space-y-8 min-w-0">
+        
+        <div>
+          <span class="text-xs uppercase font-bold tracking-wider text-emerald-600 dark:text-emerald-400 block mb-1">Account & Preferences</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold font-heading text-slate-900 dark:text-white">
+            Client Profile & Business Settings
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 min-w-0">
+          
+          <div class="lg:col-span-8 glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 space-y-5 sm:space-y-6 min-w-0">
+            <h3 class="font-bold text-base text-slate-900 dark:text-white">Business Entity Profile</h3>
+
+            <form id="settings-profile-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Primary Representative</label>
+                  <input type="text" id="settings-name" class="form-input text-xs py-2">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Contact Email</label>
+                  <input type="email" id="settings-email" class="form-input text-xs py-2">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Direct Phone</label>
+                  <input type="tel" id="settings-phone" class="form-input text-xs py-2">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Legal Company Name</label>
+                  <input type="text" id="settings-biz-name" class="form-input text-xs py-2">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Annual Revenue</label>
+                  <input type="text" id="settings-biz-revenue" class="form-input text-xs py-2">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Business Address</label>
+                  <input type="text" id="settings-biz-address" class="form-input text-xs py-2">
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+                <button type="submit" class="btn-primary text-xs py-2.5 px-6 shadow-glow">
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Demo Controller Helper Box -->
+          <div class="lg:col-span-4 glass-card rounded-3xl p-6 space-y-5">
+            <h4 class="font-bold text-base text-slate-900 dark:text-white">Reviewer Demo Controls</h4>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              EquiCapital uses client-side LocalStorage for zero-backend operation. You can restore the clean seed state at any time.
+            </p>
+            <div class="space-y-3 pt-2">
+              <button id="settings-reset-demo-btn" class="btn-secondary w-full text-xs py-2.5 text-amber-600 dark:text-amber-400 border-amber-300">
+                <i class="bi bi-arrow-counterclockwise"></i> Reset Demo to Seed State
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- =========================================================================
+       APPLICATION DETAILS & APPROVAL TRACKING SLIDE-OVER DRAWER
+       ========================================================================= -->
+  <div id="app-drawer-backdrop" class="drawer-backdrop">
+    <div class="drawer-panel p-4 sm:p-8 overflow-y-auto">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
+        <span class="text-xs uppercase font-bold text-emerald-500">Facility Drawer</span>
+        <button id="close-app-drawer-btn" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white">
+          <i class="bi bi-x-lg text-lg"></i>
+        </button>
+      </div>
+
+      <div id="app-drawer-content" class="py-4">
+        <!-- Rendered dynamically by dashboard.openApplicationDrawer() -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: UPLOAD PROGRESS SIMULATION
+       ========================================================================= -->
+  <div id="modal-upload-progress" class="modal-backdrop">
+    <div class="modal-dialog p-6 text-center space-y-4 max-w-sm">
+      <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl mx-auto shadow-glow">
+        <i class="bi bi-cloud-arrow-up"></i>
+      </div>
+      <h4 class="font-bold text-sm text-slate-900 dark:text-white" id="upload-progress-label">Encrypting & Uploading File...</h4>
+      <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+        <div id="upload-progress-bar" class="h-full bg-emerald-500 rounded-full transition-all" style="width: 15%"></div>
+      </div>
+      <p class="text-[11px] text-slate-400">Verifying SHA-256 checksum and anti-virus signature...</p>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: DOCUMENT PREVIEW
+       ========================================================================= -->
+  <div id="modal-doc-preview" class="modal-backdrop">
+    <div class="modal-dialog p-6 max-w-lg">
+      <div id="preview-doc-content"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL: SCHEDULE CALL WITH BROKER
+       ========================================================================= -->
+  <div id="modal-schedule-call" class="modal-backdrop">
+    <div class="modal-dialog p-6 sm:p-8 max-w-md">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+        <h3 class="font-bold text-base text-slate-900 dark:text-white">Schedule Advisor Call</h3>
+        <button data-modal-close class="text-slate-400 hover:text-slate-600"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="py-4 space-y-4 text-xs sm:text-sm">
+        <p class="text-xs text-slate-500">Pick a convenient time for a 15-minute phone consultation with David Vance.</p>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-1">Preferred Date</label>
+          <input type="date" value="2026-04-18" class="form-input text-xs py-2">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-1">Preferred Time Window</label>
+          <select class="form-select text-xs py-2">
+            <option>10:00 AM – 10:30 AM CST</option>
+            <option>02:00 PM – 02:30 PM CST</option>
+            <option>04:30 PM – 05:00 PM CST</option>
+          </select>
+        </div>
+      </div>
+      <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2">
+        <button data-modal-close class="btn-secondary text-xs py-2 px-4">Cancel</button>
+        <button class="btn-primary text-xs py-2 px-5 shadow-glow" onclick="App.showToast('Call Scheduled!', 'Calendar invitation dispatched to your email for David Vance.', 'success'); App.closeModal('modal-schedule-call')">
+          Confirm Booking
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core JavaScript Libraries -->
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
