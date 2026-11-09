@@ -1692,6 +1692,9 @@ p, h1, h2, h3, h4, h5, h6, span, a, li, blockquote {
 
 /* Strictly hide mobile menu drawer and backdrop on desktop screens (1024px+) */
 @media (min-width: 1024px) {
+  #dashboard-sidebar {
+    z-index: 40 !important;
+  }
   #mobile-menu-drawer,
   #mobile-menu-backdrop {
     display: none !important;
@@ -1933,6 +1936,19 @@ p, h1, h2, h3, h4, h5, h6, span, a, li, blockquote {
 /* Dashboard Sidebar & Topbar RTL Support */
 #dashboard-sidebar {
   max-width: 85vw;
+  z-index: 70 !important;
+}
+
+#dashboard-sidebar-backdrop {
+  z-index: 60 !important;
+}
+
+#mobile-menu-backdrop {
+  z-index: 60 !important;
+}
+
+#mobile-menu-drawer {
+  z-index: 70 !important;
 }
 
 [dir="rtl"] #dashboard-sidebar {
@@ -1952,6 +1968,9 @@ p, h1, h2, h3, h4, h5, h6, span, a, li, blockquote {
 }
 
 @media (min-width: 1024px) {
+  #dashboard-sidebar {
+    z-index: 40 !important;
+  }
   [dir="rtl"] #dashboard-sidebar {
     transform: translateX(0) !important;
   }

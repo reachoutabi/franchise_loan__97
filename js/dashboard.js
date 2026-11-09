@@ -81,12 +81,25 @@ class DashboardController {
 
     // Mobile sidebar toggle
     const toggleBtn = document.getElementById('dashboard-menu-toggle');
+    const closeBtn = document.getElementById('dashboard-sidebar-close');
     const sidebar = document.getElementById('dashboard-sidebar');
     const backdrop = document.getElementById('dashboard-sidebar-backdrop');
 
     toggleBtn?.addEventListener('click', () => {
       sidebar?.classList.toggle('-translate-x-full');
       backdrop?.classList.toggle('hidden');
+    });
+
+    closeBtn?.addEventListener('click', () => {
+      sidebar?.classList.add('-translate-x-full');
+      backdrop?.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebar && !sidebar.classList.contains('-translate-x-full') && window.innerWidth < 1024) {
+        sidebar?.classList.add('-translate-x-full');
+        backdrop?.classList.add('hidden');
+      }
     });
 
     backdrop?.addEventListener('click', () => {
